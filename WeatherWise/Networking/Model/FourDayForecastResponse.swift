@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ForecastResponse: Decodable {
+struct FourDayForecastResponse: Decodable {
 
     struct ListItem: Decodable {
         let dt: Int
@@ -15,7 +15,6 @@ struct ForecastResponse: Decodable {
         let weather: [WeatherInfo]
         let dt_txt: String
     }
-
     struct CityInfo: Decodable {
         let id: Int
         let name: String

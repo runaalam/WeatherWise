@@ -8,7 +8,6 @@
 import Foundation
 
 struct WeatherAPIClient: Endpoint, APIClient {
-   
     var baseURL: String {
         return Constants.URL_BASE
     }
@@ -48,9 +47,9 @@ struct WeatherAPIClient: Endpoint, APIClient {
         }
     }
     
-    func fetchData<T: Decodable>(from endpoint: Endpoint, completion: @escaping (Result<T, Error>) -> Void) {
+    func fetchData<T: Decodable>(from endpoint: Endpoint, completion: @escaping (Result<T, APIClientError>) -> Void) {
         guard let url = endpoint.url else {
-            completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
+            completion(.failure(.invalidURL))
             return
         }
 
@@ -60,12 +59,12 @@ struct WeatherAPIClient: Endpoint, APIClient {
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(.unknown(message: error.localizedDescription)))
                 return
             }
 
             guard let data = data else {
-                completion(.failure(NSError(domain: "No data received", code: 0, userInfo: nil)))
+                completion(.failure(.noDataReceived))
                 return
             }
 
@@ -74,12 +73,13 @@ struct WeatherAPIClient: Endpoint, APIClient {
                 let weatherResponse = try decoder.decode(T.self, from: data)
                 completion(.success(weatherResponse))
             } catch {
-                completion(.failure(error))
+                completion(.failure(.decodingFailed))
             }
         }
 
         task.resume()
     }
 }
+
 
 

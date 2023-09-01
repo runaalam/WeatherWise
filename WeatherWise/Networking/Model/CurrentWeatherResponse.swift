@@ -1,5 +1,5 @@
 //
-//  WeatherResponse.swift
+//  CurrentWeatherResponse.swift
 //  WeatherWise
 //
 //  Created by Runa Alam on 31/8/2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WeatherResponse: Decodable {
+struct CurrentWeatherResponse: Decodable {
     struct SystemInfo: Decodable {
         let type: Int
         let id: Int
