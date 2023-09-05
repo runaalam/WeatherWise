@@ -16,6 +16,12 @@ struct Constants {
     static let URL_PATH_WEATHER = "weather"
     static let URL_PATH_FORECAST = "forecast"
     static let URL_PATH_ONECALL = "onecall"
+    
+    static let UNIT_METRIC_SYMBOL = "°C"
+    static let UNIT_STANDARD_SYMBOL = "°F"
+    static let UNIT_METRIC_LABLE = "Celsius"
+    static let UNIT_STANDARD_LABLE = "Fahrenheit"
+    
     static let WIND_ANGLE_NORTH = "N"
     static let WIND_ANGLE_NORTH_EAST = "NE"
     static let WIND_ANGLE_EAST = "E"

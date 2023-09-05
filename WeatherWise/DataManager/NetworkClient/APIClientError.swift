@@ -1,20 +1,17 @@
 //
-//  APIClient.swift
+//  APIClientError.swift
 //  WeatherWise
 //
-//  Created by Runa Alam on 31/8/2023.
+//  Created by Runa Alam on 5/9/2023.
 //
 
 import Foundation
-
-protocol APIClient {
-    func fetchData<T: Decodable>(from endpoint: Endpoint, completion: @escaping (Result<T, APIClientError>) -> Void)
-}
 
 enum APIClientError: Error {
     case invalidURL
     case noDataReceived
     case decodingFailed
+    case requestFailed
     case responseError
     case unknown(message: String)
     
@@ -23,9 +20,11 @@ enum APIClientError: Error {
         case .invalidURL:
             return "Invalid URL"
         case .noDataReceived:
-            return "Rqquest Fail"
+            return "Request Fail"
         case .decodingFailed:
             return "Decoding Fail"
+        case .requestFailed:
+            return "Request Fail"
         case .responseError:
             return "Response Error"
         case .unknown(let message):

@@ -9,10 +9,10 @@ import Foundation
 
 protocol Endpoint {
     var baseURL: String { get }
+    var apiKey: String? { get }
     var path: String { get }
     var httpMethod: HTTPMethod { get }
-    var apiKey: String? { get }
-    var queryItems: [URLQueryItem]? { get }
+    var queryItems: [URLQueryItem]? { get}
 }
 
 extension Endpoint {
@@ -30,6 +30,4 @@ public enum HTTPMethod: String {
     case put = "PUT"
     case delete = "DELETE"
 }
-
-
 

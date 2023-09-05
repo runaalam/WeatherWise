@@ -32,6 +32,20 @@ struct SummaryHelper {
         }
         return Constants.WIND_ANGLE_NORTH_WEST
     }
+    
+    static func formatTemperature(_ temp: Double) -> String {
+        let units = UnitsService.selectedUnit
+        return "\(Int(temp))\(units.getUnitSymbol())"
+    }
+    
+    static func removeAfterComma(_ input: String) -> String {
+        let components = input.components(separatedBy: ",")
+        if let firstPart = components.first {
+            return firstPart.trimmingCharacters(in: .whitespaces)
+        } else {
+            return input
+        }
+    }
 }
 
 

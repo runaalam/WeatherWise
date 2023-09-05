@@ -11,7 +11,10 @@ import SwiftUI
 struct WeatherWiseApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            
+//            SearchHistoryListView(viewModel: SearchHistoryViewModel())
+//            SearchView(viewModel: SearchViewModel(searchHistoryViewModel: SearchHistoryViewModel()))
+            SearchView(viewModel: SearchViewModel())
         }
     }
 }

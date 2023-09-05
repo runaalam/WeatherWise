@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - OneCallResponse
 
-struct OneCallResponse: Decodable {
+struct OneCallWeatherResponse: Decodable {
     let lat: Double
     let lon: Double
     let timezone: String
@@ -46,28 +46,27 @@ struct CurrentResponse: Decodable {
     }
 }
 
-// MARK: - RainResponse
+// MARK: - HourlyResponse
 
-struct RainResponse: Decodable {
-  let the1H: Double?
-  
-  enum CodingKeys: String, CodingKey {
-    case the1H = "1h"
-  }
-}
-
-// MARK: - WeatherResponse
-
-struct WeatherResponse: Decodable {
-    let id: Int
-    let main: String
-    let weatherDescription: String
-    let icon: String
-  
+struct HourlyResponse: Decodable {
+    let dt: Int
+    let temp: Double
+    let feelsLike: Double
+    let pressure: Int
+    let humidity: Int
+    let clouds: Int
+    let windSpeed: Double
+    let windDeg: Int
+    let weather: [WeatherResponse]
+    let rain: RainResponse?
+    
     enum CodingKeys: String, CodingKey {
-        case id, main
-        case weatherDescription = "description"
-        case icon
+        case dt, temp
+        case feelsLike = "feels_like"
+        case pressure, humidity, clouds
+        case windSpeed = "wind_speed"
+        case windDeg = "wind_deg"
+        case weather, rain
     }
 }
 
@@ -98,6 +97,31 @@ struct DailyResponse: Decodable {
     }
 }
 
+// MARK: - WeatherResponse
+
+struct WeatherResponse: Decodable {
+    let id: Int
+    let main: String
+    let weatherDescription: String
+    let icon: String
+  
+    enum CodingKeys: String, CodingKey {
+        case id, main
+        case weatherDescription = "description"
+        case icon
+    }
+}
+
+// MARK: - RainResponse
+
+struct RainResponse: Decodable {
+  let the1H: Double?
+  
+  enum CodingKeys: String, CodingKey {
+    case the1H = "1h"
+  }
+}
+
 // MARK: - FeelsLikeResponse
 
 struct FeelsLikeResponse: Decodable {
@@ -116,28 +140,4 @@ struct TempResponse: Decodable {
     let night: Double
     let eve: Double
     let morn: Double
-}
-
-// MARK: - HourlyResponse
-
-struct HourlyResponse: Decodable {
-    let dt: Int
-    let temp: Double
-    let feelsLike: Double
-    let pressure: Int
-    let humidity: Int
-    let clouds: Int
-    let windSpeed: Double
-    let windDeg: Int
-    let weather: [WeatherResponse]
-    let rain: RainResponse?
-    
-    enum CodingKeys: String, CodingKey {
-        case dt, temp
-        case feelsLike = "feels_like"
-        case pressure, humidity, clouds
-        case windSpeed = "wind_speed"
-        case windDeg = "wind_deg"
-        case weather, rain
-    }
 }

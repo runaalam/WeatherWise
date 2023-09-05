@@ -22,7 +22,7 @@ struct AssetsHelper {
         case "11d", "11n": return Image(systemName: "cloud.bolt.rain")
         case "13d", "13n": return Image(systemName: "cloud.snow")
         case "50d", "50n": return Image(systemName: "cloud.fog")
-        default: return Image(systemName: "sun.max")
+        default: return Image(systemName: "star")
         }
     }
 }
