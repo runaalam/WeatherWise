@@ -18,6 +18,10 @@ class SearchViewModel: NSObject, ObservableObject {
     @Published var isShowingNoMatch: Bool = false
     @Published var showAlert = false
     @Published var alertMessage = ""
+    
+    /// Array to track deleted invoices
+    var deletedHistory: [SearchHistory] = []
+    
     private let weatherService = WeatherAPIService()
     private var cancellable = Set<AnyCancellable>()
     private lazy var localSearchCompleter: MKLocalSearchCompleter = {
@@ -59,7 +63,7 @@ class SearchViewModel: NSObject, ObservableObject {
                     print("Weather data fetched successfully.")
                 case .failure(_):
                     self.showAlert = true
-                    self.alertMessage = "City not found"
+                    self.alertMessage = "City name is not found"
                 }
             }, receiveValue: { weatherData in
                 let coordinate = Coordinate(lon: weatherData.coord.lon, lat: weatherData.coord.lat)
@@ -72,6 +76,13 @@ class SearchViewModel: NSObject, ObservableObject {
                 }
             })
             .store(in: &cancellable)
+    }
+    
+    func deleteSearchHistory(at offsets: IndexSet) {
+        searchHistory.remove(atOffsets: offsets)
+        let cities: [City] = searchHistory.map { $0.city }
+
+        CityCacheService.shared.saveAllCities(cities: cities)
     }
 }
 

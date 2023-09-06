@@ -163,12 +163,19 @@ struct SearchHistoryListView: View {
     var backgroundColor: Color = Color.init(uiColor: .systemGray6)
     
     var body: some View {
-        List(self.viewModel.searchHistory, id: \.city.id) { searchedItem in
-            HistoryListRow(searchedItem: searchedItem)
-                .listRowSeparator(.hidden)
-                .listRowBackground(backgroundColor)
+        List {
+            ForEach(viewModel.searchHistory, id: \.city.id) { searchedItem in
+                HistoryListRow(searchedItem: searchedItem)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(backgroundColor)
+            }
+            .onDelete(perform: deleteItems)
         }
         .listStyle(PlainListStyle())
+    }
+    
+    private func deleteItems(at offsets: IndexSet) {
+        viewModel.deleteSearchHistory(at: offsets)
     }
 }
 

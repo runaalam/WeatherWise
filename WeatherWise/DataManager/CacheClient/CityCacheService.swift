@@ -43,7 +43,7 @@ class CityCacheService {
     func deleteCity(city: City) {
         var cities = getAllCities()
         
-        if let index = cities.firstIndex(where: { $0.id == city.id }) {
+        if let index = cities.firstIndex(where: { $0.name == city.name && $0.country == city.country }) {
             cities.remove(at: index)
             CacheClient.shared.saveToCache(cities, forKey: cityCacheKey)
         }
@@ -72,14 +72,11 @@ class CityCacheService {
                 print("Got Error ")
             }
         }
-        print("Cached: \(cities)")
         return cities
     }
     
     func isCityExist(city: City) -> Bool {
         let cities = getAllCities()
-        print("### cached cities##")
-        print(cities)
         return cities.contains { $0.name == city.name && $0.country == city.country }
     }
 }
