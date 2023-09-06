@@ -13,21 +13,24 @@ enum APIClientError: Error {
     case decodingFailed
     case requestFailed
     case responseError
-    case unknown(message: String)
+    case unknown(error: Error)
+    case message(message: String)
     
     var description: String {
         switch self {
         case .invalidURL:
             return "Invalid URL"
         case .noDataReceived:
-            return "Request Fail"
+            return "No data received"
         case .decodingFailed:
             return "Decoding Fail"
         case .requestFailed:
             return "Request Fail"
         case .responseError:
             return "Response Error"
-        case .unknown(let message):
+        case .unknown(let error):
+            return error.localizedDescription
+        case .message(let message):
             return message
         }
     }

@@ -12,12 +12,12 @@ import Combine
 class SearchViewModel: NSObject, ObservableObject {
     
     @Published private(set) var searchResults: Array<City> = []
+    @Published var searchHistory: Array<SearchHistory> = []
     @Published var searchableText = ""
     @Published var selectedCity: City?
     @Published var isShowingNoMatch: Bool = false
-    
-    @Published var searchHistory: Array<SearchHistory> = []
-    
+    @Published var showAlert = false
+    @Published var alertMessage = ""
     private let weatherService = WeatherAPIService()
     private var cancellable = Set<AnyCancellable>()
     private lazy var localSearchCompleter: MKLocalSearchCompleter = {
@@ -26,9 +26,10 @@ class SearchViewModel: NSObject, ObservableObject {
         return completer
     }()
     
-        init(searchHistory: [SearchHistory] = []) {
-            self.searchHistory = searchHistory
-        }
+    init(searchHistory: [SearchHistory] = []) {
+        self.searchHistory = searchHistory
+    }
+    
     func searchCity(_ searchableText: String) {
         if searchableText.isEmpty {
             searchResults = []
@@ -39,10 +40,15 @@ class SearchViewModel: NSObject, ObservableObject {
     
     func handleTap(city: City) {
         if !searchableText.isEmpty {
-           getWeatherByCityName(city: city)
+            getWeatherByCityName(city: city)
         }
     }
-   
+    
+    func showAlert(message: String) {
+        alertMessage = message
+        showAlert = true
+    }
+    
     private func getWeatherByCityName(city: City) {
         weatherService.getWeatherByCityPublisher(cityName: SummaryHelper.removeAfterComma(city.name))
             .receive(on: DispatchQueue.main)
@@ -51,16 +57,19 @@ class SearchViewModel: NSObject, ObservableObject {
                 switch completion {
                 case .finished:
                     print("Weather data fetched successfully.")
-                case .failure(let error):
-                    print("Failed to fetch weather data: \(error)")
+                case .failure(_):
+                    self.showAlert = true
+                    self.alertMessage = "City not found"
                 }
             }, receiveValue: { weatherData in
                 let coordinate = Coordinate(lon: weatherData.coord.lon, lat: weatherData.coord.lat)
                 let city = City(id: city.id, name: city.name, country: city.country, coordinate: coordinate)
-                CityCacheService.shared.saveCity(city: city)
                 
-                let history = SearchHistory(city: city, response: weatherData)
-                self.searchHistory.append(history)
+                if !CityCacheService.shared.isCityExist(city: city) {
+                    CityCacheService.shared.saveCity(city: city)
+                    let history = SearchHistory(city: city, response: weatherData)
+                    self.searchHistory.append(history)
+                }
             })
             .store(in: &cancellable)
     }

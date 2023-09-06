@@ -19,17 +19,17 @@ class CityCacheService {
     // Saves an City to the cache.
     // If an city with the same name and country, it is replaced.
     func saveCity(city: City) {
-        func saveCity(city: City) {
-            //Fetch all city
-            var cities = getAllCities()
-            
-            if !cities.isEmpty {
-                CacheClient.shared.saveToCache(city, forKey: cityCacheKey)
-            } else if !isCityExist(city: city) {
-                // Add the new city to the array
-                cities.append(city)
-                CacheClient.shared.saveToCache(cities, forKey: cityCacheKey)
-            }
+        //Fetch all city
+        var cities = getAllCities()
+        
+        if !cities.isEmpty {
+            print("Cache is empty")
+            CacheClient.shared.saveToCache(city, forKey: cityCacheKey)
+        } else if !isCityExist(city: city) {
+            // Add the new city to the array
+            print("Cache is not exist")
+            cities.append(city)
+            CacheClient.shared.saveToCache(cities, forKey: cityCacheKey)
         }
     }
     
@@ -78,6 +78,8 @@ class CityCacheService {
     
     func isCityExist(city: City) -> Bool {
         let cities = getAllCities()
+        print("### cached cities##")
+        print(cities)
         return cities.contains { $0.name == city.name && $0.country == city.country }
     }
 }

@@ -26,54 +26,16 @@ extension APIClient {
 
         return URLSession.shared.dataTaskPublisher(for: request)
             .mapError { error in
-                .unknown(message: error.localizedDescription)
+                    .requestFailed
             }
             .flatMap(maxPublishers: .max(1)) { data, _ in
                 Just(data)
                     .decode(type: T.self, decoder: JSONDecoder())
-                    .mapError { _ in
-                        .decodingFailed
+                    .mapError { error in
+                        return .unknown(error: error)
                     }
             }
             .eraseToAnyPublisher()
     }
 }
 
-//protocol APIClient {
-//    func fetchData<T: Decodable>(from endpoint: Endpoint, completion: @escaping (Result<T, APIClientError>) -> Void)
-//}
-
-//extension APIClient {
-//    func fetchData<T: Decodable>(from endpoint: Endpoint, completion: @escaping (Result<T, APIClientError>) -> Void) {
-//        guard let url = endpoint.url else {
-//            completion(.failure(.invalidURL))
-//            return
-//        }
-//
-//        var request = URLRequest(url: url)
-//        request.httpMethod = endpoint.httpMethod.rawValue
-//        request.setValue(Constants.HEADER_CONTENT_VALUE, forHTTPHeaderField: Constants.HEADER_CONTENT_KEY)
-//
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let error = error {
-//                completion(.failure(.unknown(message: error.localizedDescription)))
-//                return
-//            }
-//
-//            guard let data = data else {
-//                completion(.failure(.noDataReceived))
-//                return
-//            }
-//
-//            do {
-//                let decoder = JSONDecoder()
-//                let weatherResponse = try decoder.decode(T.self, from: data)
-//                completion(.success(weatherResponse))
-//            } catch {
-//                completion(.failure(.decodingFailed))
-//            }
-//        }
-//
-//        task.resume()
-//    }
-//}

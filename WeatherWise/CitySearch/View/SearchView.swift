@@ -33,7 +33,15 @@ struct SearchView: View {
             .navigationBarItems(trailing: SettingsMenuView())
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text(""),
+                message: Text(viewModel.alertMessage),
+                dismissButton: .default(Text("OK")) {
+                    viewModel.showAlert = false
+                }
+            )
+        }
     }
 }
 
