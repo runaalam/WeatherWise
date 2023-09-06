@@ -14,7 +14,7 @@ struct WeatherSummaryView: View {
         ZStack {
             Color(.systemBackground)
                 .edgesIgnoringSafeArea(.all)
-            VStack(spacing: 32) {
+            VStack(spacing: 30) {
                 HStack {
                     VStack(spacing: 4) {
                         Text(viewModel.cityName)
@@ -27,7 +27,7 @@ struct WeatherSummaryView: View {
                                 .imageScale(.small)
                             Text("\(viewModel.weatherSummary.current.currentTempString)")
                                 .fontWeight(.semibold)
-                        }.font(.system(size: 44))
+                        }.font(.system(size: 40))
                             .frame(maxWidth: .infinity)
                         HStack(spacing: 16) {
                             Text("Feels like \(viewModel.weatherSummary.current.feelsLikeTempFormatter)")
@@ -35,6 +35,7 @@ struct WeatherSummaryView: View {
                         }
                     }
                 }
+                CurrentView(currentSummary: viewModel.weatherSummary.current)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(viewModel.weatherSummary.hourly) { hourlySummary in

@@ -11,38 +11,29 @@ struct CurrentView: View {
     @State var currentSummary: CurrentSummary
 
     var body: some View {
-        VStack {
-            ZStack {
-                HStack {
-                    VStack(alignment: .leading) {
-                        detailView(text: currentSummary.sunriseTimeString,
-                                   image: .init(systemName: "sunrise"),
-                                   offset: .init(width: 0, height: -2))
-                        
-                        detailView(text: currentSummary.sunsetTimeString,
-                                   image: .init(systemName: "sunset"),
-                                   offset: .init(width: 0, height: -2))
-                    }
-                    Spacer()
-                    VStack(alignment: .leading) {
-                        detailView(text: "UV: \(currentSummary.uvIndex)",
-                                   image: .init(systemName: "sun.max"))
-                        
-                        detailView(text: currentSummary.humidityString,
-                                   image: .init(systemName: "thermometer.sun"))
-                    }
+        VStack(alignment: .leading) {
+            HStack{
+                VStack (alignment: .leading) {
+                    detailView(text: currentSummary.sunriseTimeString,
+                               image: .init(systemName: "sunrise"),
+                               offset: .init(width: 0, height: -2))
+                    detailView(text: currentSummary.sunsetTimeString,
+                               image: .init(systemName: "sunset"),
+                               offset: .init(width: 0, height: -2))
                 }
-                
-                
-                HStack {
-                    Spacer()
-                    VStack(alignment: .leading) {
-                        detailView(text: currentSummary.windSpeedString,
-                                   image: .init(systemName: "wind"))
-                        
-                        detailView(text: currentSummary.windDirection,
-                                   image: .init(systemName: "arrow.up.right.circle"))
-                    }
+                Spacer()
+                VStack(alignment: .leading) {
+                    detailView(text: "UV: \(currentSummary.uvIndex)",
+                               image: .init(systemName: "sun.max"))
+                    detailView(text: currentSummary.humidityString,
+                               image: .init(systemName: "thermometer.sun"))
+                }
+                Spacer()
+                VStack(alignment: .leading) {
+                    detailView(text: currentSummary.windSpeedString,
+                               image: .init(systemName: "wind"))
+                    detailView(text: currentSummary.windDirection,
+                               image: .init(systemName: "arrow.up.right.circle"))
                 }
             }
         }

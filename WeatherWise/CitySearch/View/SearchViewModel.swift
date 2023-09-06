@@ -94,7 +94,8 @@ extension SearchViewModel: MKLocalSearchCompleterDelegate {
                             country: result.subtitle)
             }
         }
-    }    
+    }
+    
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         print("Completer Error")
         print(error)

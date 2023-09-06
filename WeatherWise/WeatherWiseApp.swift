@@ -11,8 +11,7 @@ import SwiftUI
 struct WeatherWiseApp: App {
     var body: some Scene {
         WindowGroup {
-            SearchView(viewModel: SearchViewModel())
-//            WeatherSummaryView(viewModel: WeatherSummaryViewModel(city: MockData.getMockCity()))
+            MainView(viewModel: SearchViewModel())
         }
     }
 }
