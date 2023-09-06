@@ -14,8 +14,6 @@ class SearchViewModel: NSObject, ObservableObject {
     @Published private(set) var searchResults: Array<City> = []
     @Published var searchHistory: Array<SearchHistory> = []
     @Published var searchableText = ""
-    @Published var selectedCity: City?
-    @Published var isShowingNoMatch: Bool = false
     @Published var showAlert = false
     @Published var alertMessage = ""
     
@@ -102,12 +100,3 @@ extension SearchViewModel: MKLocalSearchCompleterDelegate {
     }
 }
 
-extension MKLocalSearchCompletion {
-    var isValidCityResult: Bool {
-        let forbiddenKeywords = ["-", "Nearby", "Airport", "Tunnel", "Terminal", "Collage", "St", "Rd", "Ave"]
-        return !title.contains { $0.isNumber } &&
-        !subtitle.contains { $0.isNumber } &&
-        !forbiddenKeywords.contains { title.contains($0)
-        }
-    }
-}

@@ -9,20 +9,43 @@ import Foundation
 import SwiftUI
 
 struct AssetsHelper {
+    
+    // Mapping of weather IDs to system image names
+    private static let weatherIconMapping: [String: String] = [
+        "01d": "sun.max",
+        "01n": "moon",
+        "02d": "cloud.sun",
+        "02n": "cloud.moon",
+        "03d": "cloud",
+        "03n": "cloud",
+        "04d": "cloud",
+        "04n": "cloud",
+        "09d": "cloud.rain",
+        "09n": "cloud.rain",
+        "10d": "cloud.sun.rain",
+        "10n": "cloud.moon.rain",
+        "11d": "cloud.bolt.rain",
+        "11n": "cloud.bolt.rain",
+        "13d": "cloud.snow",
+        "13n": "cloud.snow",
+        "50d": "cloud.fog",
+        "50n": "cloud.fog"
+    ]
+    
+    // Provides an image representing the weather condition based on the provided weather ID.
+    // The weather ID is typically obtained from a weather data API.
+    // Reference: https://openweathermap.org/weather-conditions#How-to-get-icon-URL
+    //
+    // - Parameter weatherId: The weather condition ID used to determine the appropriate icon.
+    // - Returns: An Image containing the weather icon symbolizing the given weather condition.
+    
     static func getWeatherIcon(weatherId: String) -> Image {
-        switch weatherId {
-        case "01d": return Image(systemName: "sun.max")
-        case "01n": return Image(systemName: "moon")
-        case "02d": return Image(systemName: "cloud.sun")
-        case "02n": return Image(systemName: "cloud.moon")
-        case "03d", "03n", "04d", "04n": return Image(systemName: "cloud")
-        case "09d", "09n": return Image(systemName: "cloud.rain")
-        case "10d": return Image(systemName: "cloud.sun.rain")
-        case "10n": return Image(systemName: "cloud.moon.rain")
-        case "11d", "11n": return Image(systemName: "cloud.bolt.rain")
-        case "13d", "13n": return Image(systemName: "cloud.snow")
-        case "50d", "50n": return Image(systemName: "cloud.fog")
-        default: return Image(systemName: "star")
+        // Use the weatherIconMapping dictionary to look up the image name
+        if let imageName = weatherIconMapping[weatherId] {
+            return Image(systemName: imageName)
+        } else {
+            // If the weather ID is not found in the mapping, return the default icon
+            return Image(systemName: "star")
         }
     }
 }

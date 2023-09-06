@@ -7,25 +7,28 @@
 
 import Foundation
 
+// Enum defining different units of measurement.
 enum Units: String {
-    case standard
-    case metric
+    case standard // Represents the Fahrenheit
+    case metric   // Represents the Celsius
     
+    // Get the symbol associated with the unit.
     public func getUnitSymbol() -> String {
         switch self {
         case .standard:
-            return Constants.UNIT_STANDARD_SYMBOL
+            return Constants.UNIT_STANDARD_SYMBOL // Returns the symbol for the standard unit. e.g "°C"
         case .metric:
-            return Constants.UNIT_METRIC_SYMBOL
+            return Constants.UNIT_METRIC_SYMBOL   // Returns the symbol for the metric unit. e.g "°F"
         }
     }
     
+    // Get the label associated with the unit.
     public func getUnitLabel() -> String {
         switch self {
         case .standard:
-            return Constants.UNIT_STANDARD_LABLE
+            return Constants.UNIT_STANDARD_LABLE // Returns the label for the standard unit. e.g "Fahrenheit"
         case .metric:
-            return Constants.UNIT_METRIC_LABLE
+            return Constants.UNIT_METRIC_LABLE   // Returns the label for the metric unit. e.g "Celsius"
         }
     }
 }
@@ -49,5 +52,11 @@ class UnitsService {
     // Set the selected unit and save it to UserDefaults
     static func setSelectedUnit(_ unit: Units) {
         UserDefaults.standard.set(unit.rawValue, forKey: unitKey)
+    }
+    
+    static func clearAllUserDefaults() {
+        if let appDomain = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: appDomain)
+        }
     }
 }

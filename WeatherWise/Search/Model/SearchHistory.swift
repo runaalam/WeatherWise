@@ -14,7 +14,11 @@ struct SearchHistory {
     let weatherIcon: String
     let date: Date
     var tempString: String {
-        return SummaryHelper.formatTemperature(currentTemperature)
+        SummaryHelper.formatTemperature(currentTemperature)
+    }
+    
+    var cityName: String {
+        SummaryHelper.removeAfterComma(city.name)
     }
 }
 

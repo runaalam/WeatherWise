@@ -23,19 +23,14 @@ class WeatherSummaryViewModel: ObservableObject {
     
     init(city: City, weatherSummary: WeatherSummary = WeatherSummary()) {
         self.city = city
-        self.weatherSummary = WeatherSummary(latitude: 0,
-                                             longitude: 0,
-                                             timezone: "",
-                                             current: CurrentSummary(),
-                                             daily: [],
-                                             hourly: [])
+        self.weatherSummary = weatherSummary
     }
     
     func fetchWeatherSummary() {
         let coordinate = city.coordinate
         weatherService.getOnecallPublisher(lat: coordinate.lat, lon: coordinate.lon)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
+            .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
                     print("Fetching onecall weather data")

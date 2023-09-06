@@ -25,7 +25,7 @@ struct CurrentView: View {
                 VStack(alignment: .leading) {
                     detailView(text: "UV: \(currentSummary.uvIndex)",
                                image: .init(systemName: "sun.max"))
-                    detailView(text: currentSummary.humidityString,
+                    detailView(text: String(currentSummary.humidity),
                                image: .init(systemName: "thermometer.sun"))
                 }
                 Spacer()

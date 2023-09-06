@@ -87,6 +87,49 @@ struct MockData {
         return currentSummary
     }
     
+    func getSingleHourlySummary() -> HourlySummary {
+        let randomActualTemp = Double.random(in: 20.0...30.0)
+        let randomFeelsLikeTemp = Double.random(in: 19.0...31.0)
+        
+        let hourlySummary = HourlySummary(
+            time: Date(),
+            actualTemp: randomActualTemp,
+            feelsLikeTemp: randomFeelsLikeTemp,
+            weatherDetails: [
+                WeatherDetails(
+                    weatherID: 802,
+                    weatherCondition: "Clouds",
+                    weatherDescription: "Scattered clouds",
+                    weatherIconID: "03d"
+                )
+            ]
+        )
+        return hourlySummary
+    }
+    
+    static func getMockWeeklySummary() -> [DailySummary] {
+        var dailySummaries: [DailySummary] = []
+        let calendar = Calendar.current
+        var currentDate = calendar.startOfDay(for: Date())
+        
+        for _ in 1...7 {
+            let summary = generateRandomDailySummary(forDate: currentDate)
+            dailySummaries.append(summary)
+            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
+        }
+        return dailySummaries
+    }
+    
+    static func getMockCityWeatherSummary() -> WeatherSummary {
+        let mockWeatherSummary = WeatherSummary(latitude: 37.7749,
+                                                longitude: -122.4194,
+                                                timezone: "America/Los_Angeles",
+                                                current: MockData.getMockCurrentSummary(),
+                                                daily: MockData.getMockWeeklySummary(),
+                                                hourly: MockData.generateConsecutiveHourlySummaries())
+        return mockWeatherSummary
+    }
+    
     static func generateConsecutiveHourlySummaries() -> [HourlySummary] {
         var hourlySummaries: [HourlySummary] = []
         
@@ -121,40 +164,7 @@ struct MockData {
         return hourlySummaries
     }
     
-    
-    func getSingleHourlySummary() -> HourlySummary {
-        let randomActualTemp = Double.random(in: 20.0...30.0)
-        let randomFeelsLikeTemp = Double.random(in: 19.0...31.0)
-        
-        let hourlySummary = HourlySummary(
-            time: Date(),
-            actualTemp: randomActualTemp,
-            feelsLikeTemp: randomFeelsLikeTemp,
-            weatherDetails: [
-                WeatherDetails(
-                    weatherID: 802,
-                    weatherCondition: "Clouds",
-                    weatherDescription: "Scattered clouds",
-                    weatherIconID: "03d"
-                )
-            ]
-        )
-        return hourlySummary
-    }
-    
-    static func getMockWeeklySummary() -> [DailySummary] {
-        var dailySummaries: [DailySummary] = []
-        let calendar = Calendar.current
-        var currentDate = calendar.startOfDay(for: Date())
-        
-        for _ in 1...7 {
-            let summary = generateRandomDailySummary(forDate: currentDate)
-            dailySummaries.append(summary)
-            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
-        }
-        return dailySummaries
-    }
-    
+
     static func generateRandomDailySummary(forDate date: Date) -> DailySummary {
         let randomDayTemp = Double.random(in: 20.0...30.0)
         let dailySummary = DailySummary(
@@ -172,15 +182,5 @@ struct MockData {
             ]
         )
         return dailySummary
-    }
-    
-    static func getMockCityWeatherSummary() -> WeatherSummary {
-        let mockWeatherSummary = WeatherSummary(latitude: 37.7749,
-                                                longitude: -122.4194,
-                                                timezone: "America/Los_Angeles",
-                                                current: MockData.getMockCurrentSummary(),
-                                                daily: MockData.getMockWeeklySummary(),
-                                                hourly: MockData.generateConsecutiveHourlySummaries())
-        return mockWeatherSummary
     }
 }

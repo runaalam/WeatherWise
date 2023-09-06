@@ -63,6 +63,17 @@ struct WeatherAPIService: APIClient {
         return fetchDataPublisher(from: endpoint)
     }
     
+    // Method to fetch weather data for multiple cities
+    func getWeatherForMultipleCities(cityNames: [String]) -> AnyPublisher<[WeatherCurrentResponse], APIClientError> {
+        let publishers = cityNames.map { cityName in
+            getWeatherByCityPublisher(cityName: cityName)
+        }
+        
+        return Publishers.MergeMany(publishers)
+            .collect()
+            .eraseToAnyPublisher()
+    }
+    
     // Method to fetch forecast data by city name
     func getForecastByCityPublisher(city: String) -> AnyPublisher<WeatherForecastResponse, APIClientError> {
         let endpoint = WeatherAPIRequest.forecast(cityName: city)
