@@ -22,6 +22,14 @@ struct MockData {
         ]
     }
     
+    static func getSingleMockHistory() -> SearchHistory {
+        return SearchHistory(city: City(name: "Sydney", country: "Australia", coordinate: Coordinate(lon: 151.2093, lat: -33.8688)),
+                             currentTemperature:  11.4,
+                             weatherDescription: "Mostly sunny",
+                             weatherIcon: "01d",
+                             date: Date())
+    }
+    
     static func getMockSearchHistory() -> [SearchHistory] {
         let mockSearchHistory: [SearchHistory] = [
             SearchHistory(city: City(name: "Sydney", country: "Australia", coordinate: Coordinate(lon: 151.2093, lat: -33.8688)),

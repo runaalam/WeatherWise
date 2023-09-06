@@ -15,7 +15,7 @@
 		FD6FF6D42AA0D5490024A128 /* WeatherSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FF6D32AA0D5490024A128 /* WeatherSummary.swift */; };
 		FD6FF6D82AA0D73A0024A128 /* SummaryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FF6D72AA0D73A0024A128 /* SummaryHelper.swift */; };
 		FD7146652AA7EE8C0050E538 /* WeatherSummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7146642AA7EE8C0050E538 /* WeatherSummaryViewModel.swift */; };
-		FD71466D2AA893F70050E538 /* RecentSearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD71466C2AA893F70050E538 /* RecentSearchList.swift */; };
+		FD71466D2AA893F70050E538 /* SearchHistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD71466C2AA893F70050E538 /* SearchHistoryListView.swift */; };
 		FD71466F2AA894900050E538 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD71466E2AA894900050E538 /* SearchBar.swift */; };
 		FD7146712AA8A4110050E538 /* MKLocalSearchCompletion+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7146702AA8A4110050E538 /* MKLocalSearchCompletion+Extension.swift */; };
 		FD7146772AA8F95D0050E538 /* AssetsHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7146762AA8F95D0050E538 /* AssetsHelperTest.swift */; };
@@ -78,7 +78,7 @@
 		FD6FF6D32AA0D5490024A128 /* WeatherSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSummary.swift; sourceTree = "<group>"; };
 		FD6FF6D72AA0D73A0024A128 /* SummaryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHelper.swift; sourceTree = "<group>"; };
 		FD7146642AA7EE8C0050E538 /* WeatherSummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSummaryViewModel.swift; sourceTree = "<group>"; };
-		FD71466C2AA893F70050E538 /* RecentSearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchList.swift; sourceTree = "<group>"; };
+		FD71466C2AA893F70050E538 /* SearchHistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryListView.swift; sourceTree = "<group>"; };
 		FD71466E2AA894900050E538 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		FD7146702AA8A4110050E538 /* MKLocalSearchCompletion+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKLocalSearchCompletion+Extension.swift"; sourceTree = "<group>"; };
 		FD7146762AA8F95D0050E538 /* AssetsHelperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsHelperTest.swift; sourceTree = "<group>"; };
@@ -306,7 +306,7 @@
 			children = (
 				FDAB68732AA22937007A998A /* MainView.swift */,
 				FD71466E2AA894900050E538 /* SearchBar.swift */,
-				FD71466C2AA893F70050E538 /* RecentSearchList.swift */,
+				FD71466C2AA893F70050E538 /* SearchHistoryListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -499,7 +499,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD71466D2AA893F70050E538 /* RecentSearchList.swift in Sources */,
+				FD71466D2AA893F70050E538 /* SearchHistoryListView.swift in Sources */,
 				FD6FF6D82AA0D73A0024A128 /* SummaryHelper.swift in Sources */,
 				FDAB68A62AA746F8007A998A /* CurrentView.swift in Sources */,
 				FD6FF6BE2AA0A0080024A128 /* OneCallWeatherResponse.swift in Sources */,

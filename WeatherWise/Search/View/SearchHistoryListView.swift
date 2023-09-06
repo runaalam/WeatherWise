@@ -34,22 +34,46 @@ struct HistoryListRow: View {
     let searchedItem: SearchHistory
     
     var body: some View {
-        HStack {
-            Spacer()
+        HStack{
             Text(searchedItem.cityName)
                 .fontWeight(.medium)
             Spacer()
             
             Text(searchedItem.weatherDescription)
                 .fontWeight(.light)
-                .foregroundColor(.secondary)
+                .font(.system(size: 12))
             Spacer()
             Text(searchedItem.tempString)
             
             AssetsHelper.getWeatherIcon(weatherId: searchedItem.weatherIcon)
                 .imageScale(.large)
                 .foregroundColor(.secondary)
-            Spacer()
         }
     }
 }
+
+struct HistoryListRow_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            let mockHistory: SearchHistory = MockData.getSingleMockHistory()
+            HistoryListRow(searchedItem: mockHistory)
+        }
+        
+        
+        Group {
+            let historyList: [SearchHistory] = MockData.getMockSearchHistory()
+            
+            SearchHistoryListView()
+                .environmentObject(SearchViewModel(searchHistory: historyList))
+        }
+    }
+}
+
+//struct SearchHistoryListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let mockHistory: [SearchHistory] = MockData.getMockSearchHistory()
+//
+//        SearchHistoryListView()
+//            .environmentObject(SearchViewModel(searchHistory: mockHistory))
+//    }
+//}
