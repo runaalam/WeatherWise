@@ -7,30 +7,43 @@
 
 import Foundation
 
-struct DailySummary {
-    let time: Date
+struct DailySummary: Identifiable {
+    let id: UUID = UUID()
+    let date: Date
     let sunriseTime: Date
     let sunsetTime: Date
-    let dayTemp: Temperature
-    let nightTemp: Temperature
-    let minTemp: Temperature
-    let maxTemp: Temperature
-    let eveTemp: Temperature
-    let mornTemp: Temperature
+    let dayTemp: Double
+    let nightTemp: Double
+    let minTemp: Double
+    let maxTemp: Double
+    let eveTemp: Double
+    let mornTemp: Double
     let weatherDetails: [WeatherDetails]
+    
+    var dayString: String {
+        SummaryHelper.dayToStringFormatter(date)
+    }
+    
+    var maxTempString: String {
+        SummaryHelper.formatTemperature(maxTemp)
+    }
+    
+    var minTempString: String {
+        SummaryHelper.formatTemperature(minTemp)
+    }
 }
 
 extension DailySummary {
     init(response: DailyResponse) {
-        self.time = Date(timeIntervalSince1970: TimeInterval(response.dt))
+        self.date = Date(timeIntervalSince1970: TimeInterval(response.dt))
         self.sunriseTime = Date(timeIntervalSince1970: TimeInterval(response.sunrise))
         self.sunsetTime = Date(timeIntervalSince1970: TimeInterval(response.sunset))
-        self.dayTemp =  Temperature(kelvin: response.temp.day)
-        self.nightTemp = Temperature(kelvin: response.temp.night)
-        self.minTemp = Temperature(kelvin: response.temp.min)
-        self.maxTemp = Temperature(kelvin: response.temp.max)
-        self.eveTemp = Temperature(kelvin: response.temp.eve)
-        self.mornTemp = Temperature(kelvin: response.temp.morn)
+        self.dayTemp = response.temp.day
+        self.nightTemp = response.temp.night
+        self.minTemp = response.temp.min
+        self.maxTemp = response.temp.max
+        self.eveTemp = response.temp.eve
+        self.mornTemp = response.temp.morn
         self.weatherDetails = response.weather.map { WeatherDetails(response: $0) }
     }
 }

@@ -19,11 +19,9 @@ class SearchViewModel: NSObject, ObservableObject {
     @Published var showAlert = false
     @Published var alertMessage = ""
     
-    /// Array to track deleted invoices
-    var deletedHistory: [SearchHistory] = []
-    
     private let weatherService = WeatherAPIService()
     private var cancellable = Set<AnyCancellable>()
+    
     private lazy var localSearchCompleter: MKLocalSearchCompleter = {
         let completer = MKLocalSearchCompleter()
         completer.delegate = self
@@ -87,34 +85,28 @@ class SearchViewModel: NSObject, ObservableObject {
 }
 
 extension SearchViewModel: MKLocalSearchCompleterDelegate {
-    
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         
         Task { @MainActor in
-            searchResults = completer.results.filter {
-                !$0.title.contains("-") &&
-                !$0.title.contains(where: \.isNumber) &&
-                !$0.subtitle.contains(where: \.isNumber) &&
-                !$0.subtitle.contains("Nearby") &&
-                !$0.title.contains("Airport") &&
-                !$0.title.contains("Tunnel") &&
-                !$0.title.contains("Terminal") &&
-                !$0.title.contains("Collage") &&
-                !$0.title.contains("St") &&
-                !$0.title.contains("Rd") &&
-                !$0.title.contains("Ave")
-            }
-            .compactMap { result in
+            searchResults = completer.results.filter { $0.isValidCityResult }
+                                           .compactMap { result in
                 return City(name: result.title,
                             country: result.subtitle)
             }
         }
-    }
-    
+    }    
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         print("Completer Error")
         print(error)
     }
 }
 
-
+extension MKLocalSearchCompletion {
+    var isValidCityResult: Bool {
+        let forbiddenKeywords = ["-", "Nearby", "Airport", "Tunnel", "Terminal", "Collage", "St", "Rd", "Ave"]
+        return !title.contains { $0.isNumber } &&
+        !subtitle.contains { $0.isNumber } &&
+        !forbiddenKeywords.contains { title.contains($0)
+        }
+    }
+}

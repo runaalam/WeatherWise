@@ -46,6 +46,7 @@ public enum WeatherAPIRequest: Endpoint {
             return [
                 URLQueryItem(name: "lat", value: "\(lat)"),
                 URLQueryItem(name: "lon", value: "\(lon)"),
+                URLQueryItem(name: "units", value: UnitsService.selectedUnit.rawValue),
                 URLQueryItem(name: "appid", value: apiKey)
             ]
         }
@@ -69,73 +70,16 @@ struct WeatherAPIService: APIClient {
         return fetchDataPublisher(from: endpoint)
     }
     
-    // Method to fetch onecall data by coordinates
+    // Method to fetch onecall data by coordinates using publisher
     func getOnecallPublisher(lat: Double, lon: Double) -> AnyPublisher<OneCallWeatherResponse, APIClientError> {
         let endpoint = WeatherAPIRequest.onecall(lat: lat, lon: lon)
         print("End point \(endpoint)")
         return fetchDataPublisher(from: endpoint)
     }
     
-    private func decodeResponse<T: Decodable>(data: Data) -> AnyPublisher<T, APIClientError> {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .secondsSince1970
-        
-        do {
-            let decodedData = try decoder.decode(T.self, from: data)
-            return Just(decodedData)
-                .setFailureType(to: APIClientError.self)
-                .eraseToAnyPublisher()
-        } catch {
-            return Fail(error: APIClientError.decodingFailed).eraseToAnyPublisher()
-        }
+    // Method fetching onecall data by coordinates
+    func getOnecall(lat: Double, lon: Double, completion: @escaping (Result<OneCallWeatherResponse, APIClientError>) -> Void) {
+        let endpoint = WeatherAPIRequest.onecall(lat: lat, lon: lon)
+        self.fetchData(from: endpoint, completion: completion)
     }
 }
-
-//struct WeatherAPIService: APIClient {
-//    // fetching weather data by city name
-//    func getWeatherByCity(cityName: String, completion: @escaping (Result<WeatherCurrentResponse, APIClientError>) -> Void) {
-//        let endpoint = WeatherAPIRequest.weather(cityName: cityName)
-//        self.fetchData(from: endpoint, completion: completion)
-//    }
-//
-//    // fetching forecast data by city name
-//    func getForecastByCity(city: String, completion: @escaping (Result<WeatherForecastResponse, APIClientError>) -> Void) {
-//        let endpoint = WeatherAPIRequest.forecast(cityName: city)
-//        self.fetchData(from: endpoint, completion: completion)
-//    }
-//
-//    // fetching onecall data by coordinates
-//    func getOnecall(lat: Double, lon: Double, completion: @escaping (Result<OneCallWeatherResponse, APIClientError>) -> Void) {
-//        let endpoint = WeatherAPIRequest.onecall(lat: lat, lon: lon)
-//        self.fetchData(from: endpoint, completion: completion)
-//    }
-//}
-
-//switch endPoint {
-//case .weather(let cityName):
-//    self.path = endPoint.path
-//    self.queryItems =  [
-//        URLQueryItem(name: "q", value: cityName),
-//        URLQueryItem(name: "appid", value: apiKey)
-//    ]
-//case .forecast(cityName: let cityName):
-//    self.path = endPoint.path
-//    self.queryItems =  [
-//        URLQueryItem(name: "q", value: cityName),
-//        URLQueryItem(name: "appid", value: apiKey)
-//    ]
-//case .onecall(let lat, let lon):
-//    self.path = endPoint.path
-//    self.queryItems =  [
-//        URLQueryItem(name: "lat", value: "\(lat)"),
-//        URLQueryItem(name: "lon", value: "\(lon)"),
-//        URLQueryItem(name: "appid", value: apiKey)
-//    ]
-//}
-
-//init(request: WeatherAPIRequest) {
-//    self.path = request.path
-//    var localQueryItems = request.queryItems ?? []
-//        localQueryItems.append(URLQueryItem(name: "appid", value: apiKey))
-//        self.queryItems = localQueryItems
-//}

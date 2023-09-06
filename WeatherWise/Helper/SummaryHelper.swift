@@ -33,9 +33,13 @@ struct SummaryHelper {
         return Constants.WIND_ANGLE_NORTH_WEST
     }
     
-    static func formatTemperature(_ temp: Double) -> String {
-        let units = UnitsService.selectedUnit
-        return "\(Int(temp))\(units.getUnitSymbol())"
+    static func formatTemperature(_ temp: Double?) -> String {
+        if let temp = temp {
+            let units = UnitsService.selectedUnit
+            return "\(Int(temp))\(units.getUnitSymbol())"
+        } else {
+            return "--º"
+        }
     }
     
     static func removeAfterComma(_ input: String) -> String {
@@ -45,6 +49,18 @@ struct SummaryHelper {
         } else {
             return input
         }
+    }
+    
+    static func timeToStringFormatter(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .short
+        return dateFormatter.string(from: date)
+    }
+    
+    static func dayToStringFormatter(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        return dateFormatter.string(from: date)
     }
 }
 

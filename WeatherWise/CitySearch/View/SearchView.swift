@@ -102,7 +102,6 @@ struct SearchListView: View {
                 }
         }
         .listStyle(.insetGrouped)
-
     }
 }
 
@@ -160,18 +159,19 @@ struct ClearButton: View {
 
 struct SearchHistoryListView: View {
     @EnvironmentObject var viewModel: SearchViewModel
-    var backgroundColor: Color = Color.init(uiColor: .systemGray6)
-    
+
     var body: some View {
         List {
-            ForEach(viewModel.searchHistory, id: \.city.id) { searchedItem in
-                HistoryListRow(searchedItem: searchedItem)
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(backgroundColor)
+            ForEach(viewModel.searchHistory.indices, id: \.self) { index in
+                let searchedItem = viewModel.searchHistory[index]
+                let city = searchedItem.city // Get the City object separately
+                NavigationLink(destination: WeatherSummaryView(viewModel: WeatherSummaryViewModel(city: city))) {
+                    HistoryListRow(searchedItem: searchedItem)
+                        .listRowSeparator(.hidden)
+                }
             }
             .onDelete(perform: deleteItems)
         }
-        .listStyle(PlainListStyle())
     }
     
     private func deleteItems(at offsets: IndexSet) {
@@ -183,38 +183,37 @@ struct HistoryListRow: View {
     let searchedItem: SearchHistory
     
     var body: some View {
-        VStack {
+        HStack {
             Spacer()
-            HStack {
-                Spacer()
-                Text(searchedItem.city.name)
-                    .fontWeight(.medium)
-                Spacer()
-                
-                Text(searchedItem.weatherDescription)
-                    .fontWeight(.light)
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text(searchedItem.tempString)
-                
-                AssetsHelper.getWeatherIcon(weatherId: searchedItem.weatherIcon)
-                    .imageScale(.large)
-                    .foregroundColor(.secondary)
-                Spacer()
-            }
+            Text(searchedItem.city.name)
+                .fontWeight(.medium)
+            Spacer()
+            
+            Text(searchedItem.weatherDescription)
+                .fontWeight(.light)
+                .foregroundColor(.secondary)
+            Spacer()
+            Text(searchedItem.tempString)
+            
+            AssetsHelper.getWeatherIcon(weatherId: searchedItem.weatherIcon)
+                .imageScale(.large)
+                .foregroundColor(.secondary)
             Spacer()
         }
-        .background(Color.white)
-        .cornerRadius(10)
     }
 }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        let history = MockData.getMockSearchHistory()
-        let vm = SearchViewModel(searchHistory: history)
         
-        SearchView(viewModel: vm)
+        
+        Group {
+            let history = MockData.getMockSearchHistory()
+            let vm = SearchViewModel(searchHistory: history)
+            SearchView(viewModel: vm)
+        }
+        .previewDisplayName("Weather")
+        
     }
 }
 
