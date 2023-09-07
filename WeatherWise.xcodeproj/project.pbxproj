@@ -21,6 +21,7 @@
 		FD7146772AA8F95D0050E538 /* AssetsHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7146762AA8F95D0050E538 /* AssetsHelperTest.swift */; };
 		FD71467B2AA9052A0050E538 /* UnitsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD71467A2AA9052A0050E538 /* UnitsServiceTests.swift */; };
 		FD7146832AA923E20050E538 /* CacheClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7146822AA923E20050E538 /* CacheClientTest.swift */; };
+		FD7773A92AA94BEB00F53AE3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FD7773A82AA94BEB00F53AE3 /* README.md */; };
 		FD862E842A9EC9D500CF068F /* WeatherWiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD862E832A9EC9D500CF068F /* WeatherWiseApp.swift */; };
 		FD862E882A9EC9D600CF068F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD862E872A9EC9D600CF068F /* Assets.xcassets */; };
 		FD862E8C2A9EC9D600CF068F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD862E8B2A9EC9D600CF068F /* Preview Assets.xcassets */; };
@@ -84,6 +85,7 @@
 		FD7146762AA8F95D0050E538 /* AssetsHelperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsHelperTest.swift; sourceTree = "<group>"; };
 		FD71467A2AA9052A0050E538 /* UnitsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsServiceTests.swift; sourceTree = "<group>"; };
 		FD7146822AA923E20050E538 /* CacheClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheClientTest.swift; sourceTree = "<group>"; };
+		FD7773A82AA94BEB00F53AE3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FD862E802A9EC9D500CF068F /* WeatherWise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherWise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD862E832A9EC9D500CF068F /* WeatherWiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWiseApp.swift; sourceTree = "<group>"; };
 		FD862E872A9EC9D600CF068F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 		FD862E772A9EC9D500CF068F = {
 			isa = PBXGroup;
 			children = (
+				FD7773A82AA94BEB00F53AE3 /* README.md */,
 				FD862E822A9EC9D500CF068F /* WeatherWise */,
 				FD862E942A9EC9D600CF068F /* WeatherWiseTests */,
 				FD862E9E2A9EC9D600CF068F /* WeatherWiseUITests */,
@@ -471,6 +474,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD7773A92AA94BEB00F53AE3 /* README.md in Resources */,
 				FD862EB52A9ED77E00CF068F /* LaunchScreen.storyboard in Resources */,
 				FD862EB72A9EE0D100CF068F /* handy-meditating-cloud.gif in Resources */,
 				FD862E8C2A9EC9D600CF068F /* Preview Assets.xcassets in Resources */,
