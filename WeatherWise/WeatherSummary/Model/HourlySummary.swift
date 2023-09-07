@@ -16,7 +16,7 @@ struct HourlySummary: Identifiable {
     let weatherDetails: [WeatherDetails]
     
     var hourlyActualTemp: String {
-        SummaryHelper.formatTemperature(actualTemp)
+        SummaryHelper.formatTemperature(actualTemp, unit: UnitsService.selectedUnit)
     }
     
     var currentTime: String {

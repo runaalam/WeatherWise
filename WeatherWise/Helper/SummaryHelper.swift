@@ -42,9 +42,9 @@ struct SummaryHelper {
     //   - temp: The temperature value to format
     //   - unit: The selected unit of measurement (default is user's preference)
     // - Returns: A formatted string representing the temperature (e.g., "25°C", "72°F")
-    static func formatTemperature(_ temp: Double?, unit: Units = UnitsService.selectedUnit) -> String {
+    static func formatTemperature(_ temp: Double?, unit: Units) -> String {
         if let temp = temp {
-            let units = UnitsService.selectedUnit
+            let units = unit
             return "\(Int(temp))\(units.getUnitSymbol())"
         } else {
             return "--º"

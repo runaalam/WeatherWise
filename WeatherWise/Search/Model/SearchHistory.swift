@@ -14,12 +14,20 @@ struct SearchHistory {
     let weatherIcon: String
     let date: Date
     var tempString: String {
-        SummaryHelper.formatTemperature(currentTemperature)
+        SummaryHelper.formatTemperature(currentTemperature, unit: UnitsService.selectedUnit)
     }
     
     var cityName: String {
         SummaryHelper.removeAfterComma(city.name)
     }
+    
+    init(city: City, currentTemperature: Double, weatherDescription: String, weatherIcon: String, date: Date) {
+         self.city = city
+         self.currentTemperature = currentTemperature
+         self.weatherDescription = weatherDescription
+         self.weatherIcon = weatherIcon
+         self.date = date
+     }
 }
 
 extension SearchHistory {

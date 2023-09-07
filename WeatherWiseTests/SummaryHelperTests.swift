@@ -17,9 +17,9 @@ final class SummaryHelperTests: XCTestCase {
     }
     
     func testFormatTemperature() {
-        XCTAssertEqual(SummaryHelper.formatTemperature(25.0, unit: Units.metric), "25°C")
+        XCTAssertEqual(SummaryHelper.formatTemperature(25, unit: Units.metric), "25°C")
         XCTAssertEqual(SummaryHelper.formatTemperature(72.0, unit: Units.standard), "72°F")
-        XCTAssertEqual(SummaryHelper.formatTemperature(nil), "--º")
+        XCTAssertEqual(SummaryHelper.formatTemperature(nil, unit: Units.standard), "--º")
     }
     
     func testRemoveAfterComma() {

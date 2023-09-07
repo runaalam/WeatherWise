@@ -78,7 +78,9 @@ class SearchViewModel: NSObject, ObservableObject {
         searchHistory.remove(atOffsets: offsets)
         let cities: [City] = searchHistory.map { $0.city }
 
-        CityCacheService.shared.saveAllCities(cities: cities)
+        if !CityCacheService.shared.getAllCities().isEmpty {
+            CityCacheService.shared.saveAllCities(cities: cities)
+        }
     }
 }
 

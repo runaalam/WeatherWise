@@ -25,11 +25,11 @@ struct DailySummary: Identifiable {
     }
     
     var maxTempString: String {
-        SummaryHelper.formatTemperature(maxTemp)
+        SummaryHelper.formatTemperature(maxTemp, unit: UnitsService.selectedUnit)
     }
     
     var minTempString: String {
-        SummaryHelper.formatTemperature(minTemp)
+        SummaryHelper.formatTemperature(minTemp, unit: UnitsService.selectedUnit)
     }
 }
 
