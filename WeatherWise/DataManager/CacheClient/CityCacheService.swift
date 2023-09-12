@@ -35,6 +35,8 @@ class CityCacheService {
     
     // Saves an array of cities to the cache.
     func saveAllCities(cities: [City]) {
+        //Delete previous city list and save updated city list
+        deleteAllCities()
         CacheClient.shared.saveToCache(cities, forKey: cityCacheKey)
     }
    

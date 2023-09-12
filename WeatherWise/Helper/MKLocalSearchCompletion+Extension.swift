@@ -10,10 +10,13 @@ import MapKit
 
 extension MKLocalSearchCompletion {
     var isValidCityResult: Bool {
-        let forbiddenKeywords = ["-", "Nearby", "Airport", "Tunnel", "Terminal", "Collage", "St", "Rd", "Ave"]
+        let forbiddenTitle = ["St", "Rd", "Ave"]
+        let forbiddenSubtitle = ["Search Nearby"]
+        let commaCountSubtitle = subtitle.filter { $0 == "," }.count
+        guard commaCountSubtitle < 2 else { return false }
         return !title.contains { $0.isNumber } &&
         !subtitle.contains { $0.isNumber } &&
-        !forbiddenKeywords.contains { title.contains($0)
-        }
+        !forbiddenTitle.contains { title.contains($0) } &&
+        !forbiddenSubtitle.contains { subtitle.contains($0) }
     }
 }

@@ -31,17 +31,17 @@ struct MainView: View {
             .background(backgroundColor)
             .navigationTitle("Weather")
             .navigationBarItems(trailing: SettingsMenuView())
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(
+                    title: Text(""),
+                    message: Text(viewModel.alertMessage),
+                    dismissButton: .default(Text("OK")) {
+                        viewModel.showAlert = false
+                    }
+                )
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .alert(isPresented: $viewModel.showAlert) {
-            Alert(
-                title: Text(""),
-                message: Text(viewModel.alertMessage),
-                dismissButton: .default(Text("OK")) {
-                    viewModel.showAlert = false
-                }
-            )
-        }
     }
 }
 

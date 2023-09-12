@@ -16,7 +16,8 @@ class WeatherSummaryViewModel: ObservableObject {
     private let city: City
     private let weatherService = WeatherAPIService()
     private var cancellable = Set<AnyCancellable>()
-       
+    
+    //To show city name only so removing after ','
     var cityName: String {
         SummaryHelper.removeAfterComma(city.name)
     }

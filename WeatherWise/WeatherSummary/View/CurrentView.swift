@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CurrentView: View {
-    @State var currentSummary: CurrentSummary
+    let currentSummary: CurrentSummary
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -47,14 +47,5 @@ struct CurrentView: View {
                 .offset(offset)
             Text(text)
         }
-    }
-}
-
-
-
-struct CurrentWeatherView_Previews: PreviewProvider {
-    static var previews: some View {
-        CurrentView(currentSummary: MockData.getMockCurrentSummary())
-        
     }
 }

@@ -23,6 +23,7 @@ class SearchViewModel: NSObject, ObservableObject {
     private lazy var localSearchCompleter: MKLocalSearchCompleter = {
         let completer = MKLocalSearchCompleter()
         completer.delegate = self
+        completer.pointOfInterestFilter = .excludingAll
         return completer
     }()
     
@@ -77,10 +78,7 @@ class SearchViewModel: NSObject, ObservableObject {
     func deleteSearchHistory(at offsets: IndexSet) {
         searchHistory.remove(atOffsets: offsets)
         let cities: [City] = searchHistory.map { $0.city }
-
-        if !CityCacheService.shared.getAllCities().isEmpty {
-            CityCacheService.shared.saveAllCities(cities: cities)
-        }
+        CityCacheService.shared.saveAllCities(cities: cities)
     }
 }
 

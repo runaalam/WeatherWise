@@ -68,12 +68,3 @@ struct HistoryListRow_Previews: PreviewProvider {
         }
     }
 }
-
-//struct SearchHistoryListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let mockHistory: [SearchHistory] = MockData.getMockSearchHistory()
-//
-//        SearchHistoryListView()
-//            .environmentObject(SearchViewModel(searchHistory: mockHistory))
-//    }
-//}
