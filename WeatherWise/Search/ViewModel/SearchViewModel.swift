@@ -80,6 +80,22 @@ class SearchViewModel: NSObject, ObservableObject {
         let cities: [City] = searchHistory.map { $0.city }
         CityCacheService.shared.saveAllCities(cities: cities)
     }
+    
+    func updateUnitType(_ unitType: Units) {
+        var updatedSearchedHistory: [SearchHistory] = []
+        
+        for history in searchHistory {
+            updatedSearchedHistory.append(SearchHistory(city: history.city,
+                                                        currentTemperature: SummaryHelper.convertTempUnit(history.currentTemperature,
+                                                                                                      actualType: history.unitType, convertedType: unitType),
+                                                        weatherDescription: history.weatherDescription,
+                                                        weatherIcon: history.weatherIcon,
+                                                        date: history.date,
+                                                        unitType: unitType))
+        }
+        
+        self.searchHistory = updatedSearchedHistory
+    }
 }
 
 extension SearchViewModel: MKLocalSearchCompleterDelegate {

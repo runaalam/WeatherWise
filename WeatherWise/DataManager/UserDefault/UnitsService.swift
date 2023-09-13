@@ -9,14 +9,14 @@ import Foundation
 
 // Enum defining different units of measurement.
 enum Units: String {
-    case standard // Represents the Fahrenheit
+    case imperial // Represents the Fahrenheit
     case metric   // Represents the Celsius
     
     // Get the symbol associated with the unit.
     public func getUnitSymbol() -> String {
         switch self {
-        case .standard:
-            return Constants.UNIT_STANDARD_SYMBOL // Returns the symbol for the standard unit. e.g "°C"
+        case .imperial:
+            return Constants.UNIT_IMPERIAL_SYMBOL // Returns the symbol for the imperial unit. e.g "°F"
         case .metric:
             return Constants.UNIT_METRIC_SYMBOL   // Returns the symbol for the metric unit. e.g "°F"
         }
@@ -25,8 +25,8 @@ enum Units: String {
     // Get the label associated with the unit.
     public func getUnitLabel() -> String {
         switch self {
-        case .standard:
-            return Constants.UNIT_STANDARD_LABLE // Returns the label for the standard unit. e.g "Fahrenheit"
+        case .imperial:
+            return Constants.UNIT_IMPERIAL_LABLE // Returns the label for the imperial unit. e.g "Fahrenheit"
         case .metric:
             return Constants.UNIT_METRIC_LABLE   // Returns the label for the metric unit. e.g "Celsius"
         }

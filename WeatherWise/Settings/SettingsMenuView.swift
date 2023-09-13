@@ -10,24 +10,27 @@ import SwiftUI
 
 struct SettingsMenuView: View {
     @StateObject private var viewModel = SettingsMenuViewModel()
+    @Binding var selectedUnit: Units
     
     var body: some View {
         Menu {
             
             Button(action: {
-                viewModel.setUnit(.standard)
+                selectedUnit = .imperial
+                viewModel.setUnit(.imperial)
             }) {
-                if viewModel.selectedUnit == .standard {
+                if viewModel.selectedUnit == .imperial {
                     HStack {
-                        Text(Units.standard.getUnitLabel())
+                        Text(Units.imperial.getUnitLabel())
                         Image(systemName: "checkmark")
                     }
                 } else {
-                    Text(Units.standard.getUnitLabel())
+                    Text(Units.imperial.getUnitLabel())
                 }
             }
             
             Button(action: {
+                selectedUnit = .metric
                 viewModel.setUnit(.metric)
             }) {
                 if viewModel.selectedUnit == .metric {

@@ -8,7 +8,7 @@
 import Foundation
 
 struct SummaryHelper {
-    // Converts wind direction number to angle 
+    // Converts wind direction number to angle
     // Reference: http://snowfence.umn.edu/Components/winddirectionanddegrees.htm
     // - Parameter windAngle: The wind direction angle in degrees (0-360)
     // - Returns: A string representing the wind direction (e.g., "N", "NE", "E", etc.)
@@ -41,14 +41,28 @@ struct SummaryHelper {
     // - Parameters:
     //   - temp: The temperature value to format
     //   - unit: The selected unit of measurement (default is user's preference)
-    // - Returns: A formatted string representing the temperature (e.g., "25°C", "72°F")
-    static func formatTemperature(_ temp: Double?, unit: Units) -> String {
+    // - Returns: A string representing the temperature (e.g., "25°C", "72°F")
+    static func getTempStringWithSymbol(_ temp: Double?, unit: Units) -> String {
         if let temp = temp {
-            let units = unit
-            return "\(Int(temp))\(units.getUnitSymbol())"
+            return "\(Int(temp))\(unit.getUnitSymbol())"
         } else {
             return "--º"
         }
+    }
+    
+    //    Converts a temperature value from one unit system to another.
+    //    - Parameters:
+    //      - value: The temperature value to be converted.
+    //      - actualType: The original unit system (e.g., .imperial for Fahrenheit or .metric for Celsius).
+    //      - convertedType: The target unit system for conversion.
+    //    - Returns: The converted temperature value in the specified unit system.
+    static func convertTempUnit(_ value: Double, actualType: Units, convertedType: Units) -> Double {
+        if actualType == .imperial && convertedType == .metric {
+            return (value - 32) * 5/9
+        } else if actualType == .metric && convertedType == .imperial {
+            return (value * 9/5) + 32
+        }
+        return value
     }
     
     // Removes text after the first comma in a string

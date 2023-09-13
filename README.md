@@ -11,7 +11,7 @@
 - View recent weather history.
 - Delete entries from the weather history.
 - Detailed weather information with icons.
-- Choose between standard or metric units.
+- Choose between imperial or metric units.
 - Unit test for helper class and other services
 
 ## Architecture

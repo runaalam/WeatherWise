@@ -21,11 +21,11 @@ struct CurrentSummary {
     let weatherDetails: [WeatherDetails]
     
     var currentTempString: String {
-        SummaryHelper.formatTemperature(actualTemp, unit: UnitsService.selectedUnit)
+        SummaryHelper.getTempStringWithSymbol(actualTemp, unit: UnitsService.selectedUnit)
     }
     
     var feelsLikeTempFormatter: String {
-        SummaryHelper.formatTemperature(feelsLikeTemp, unit: UnitsService.selectedUnit)
+        SummaryHelper.getTempStringWithSymbol(feelsLikeTemp, unit: UnitsService.selectedUnit)
     }
     
     var sunriseTimeString: String {

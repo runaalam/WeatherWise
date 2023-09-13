@@ -12,13 +12,13 @@ class UnitsServiceTests: XCTestCase {
     
     // Test the Units enum getUnitSymbol method
     func testUnitsEnumGetUnitSymbol() {
-        XCTAssertEqual(Units.standard.getUnitSymbol(), "°F")
+        XCTAssertEqual(Units.imperial.getUnitSymbol(), "°F")
         XCTAssertEqual(Units.metric.getUnitSymbol(), "°C")
     }
     
     // Test the Units enum getUnitLabel method
     func testUnitsEnumGetUnitLabel() {
-        XCTAssertEqual(Units.standard.getUnitLabel(), "Fahrenheit")
+        XCTAssertEqual(Units.imperial.getUnitLabel(), "Fahrenheit")
         XCTAssertEqual(Units.metric.getUnitLabel(), "Celsius")
     }
     
@@ -30,8 +30,8 @@ class UnitsServiceTests: XCTestCase {
         XCTAssertEqual(UnitsService.selectedUnit, Units.metric)
         
         // Set and retrieve a custom selected unit
-        UnitsService.setSelectedUnit(Units.standard)
-        XCTAssertEqual(UnitsService.selectedUnit, Units.standard)
+        UnitsService.setSelectedUnit(Units.imperial)
+        XCTAssertEqual(UnitsService.selectedUnit, Units.imperial)
     }
 }
 

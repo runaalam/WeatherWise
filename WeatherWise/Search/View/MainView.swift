@@ -10,7 +10,8 @@ import SwiftUI
 struct MainView: View {
     
     @StateObject var viewModel: SearchViewModel
-
+    @State private var selectedUnit: Units = UnitsService.selectedUnit
+    
     var backgroundColor: Color = Color.init(uiColor: .systemGray6)
     
     var body: some View {
@@ -30,7 +31,10 @@ struct MainView: View {
             }
             .background(backgroundColor)
             .navigationTitle("Weather")
-            .navigationBarItems(trailing: SettingsMenuView())
+            .navigationBarItems(trailing: SettingsMenuView(selectedUnit: $selectedUnit))
+            .onChange(of: selectedUnit, perform: { newValue in
+                viewModel.updateUnitType(selectedUnit)
+            })
             .alert(isPresented: $viewModel.showAlert) {
                 Alert(
                     title: Text(""),

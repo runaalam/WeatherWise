@@ -18,9 +18,9 @@ struct Constants {
     static let URL_PATH_ONECALL = "onecall"
     
     static let UNIT_METRIC_SYMBOL = "°C"
-    static let UNIT_STANDARD_SYMBOL = "°F"
+    static let UNIT_IMPERIAL_SYMBOL = "°F"
     static let UNIT_METRIC_LABLE = "Celsius"
-    static let UNIT_STANDARD_LABLE = "Fahrenheit"
+    static let UNIT_IMPERIAL_LABLE = "Fahrenheit"
     
     static let WIND_ANGLE_NORTH = "N"
     static let WIND_ANGLE_NORTH_EAST = "NE"

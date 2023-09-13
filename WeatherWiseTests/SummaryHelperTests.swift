@@ -17,9 +17,9 @@ final class SummaryHelperTests: XCTestCase {
     }
     
     func testFormatTemperature() {
-        XCTAssertEqual(SummaryHelper.formatTemperature(25, unit: Units.metric), "25°C")
-        XCTAssertEqual(SummaryHelper.formatTemperature(72.0, unit: Units.standard), "72°F")
-        XCTAssertEqual(SummaryHelper.formatTemperature(nil, unit: Units.standard), "--º")
+        XCTAssertEqual(SummaryHelper.getTempStringWithSymbol(25, unit: Units.metric), "25°C")
+        XCTAssertEqual(SummaryHelper.getTempStringWithSymbol(72.0, unit: Units.imperial), "72°F")
+        XCTAssertEqual(SummaryHelper.getTempStringWithSymbol(nil, unit: Units.imperial), "--º")
     }
     
     func testRemoveAfterComma() {
@@ -53,6 +53,23 @@ final class SummaryHelperTests: XCTestCase {
         let date = dateFormatter.date(from: "2023-09-06")!
         
         XCTAssertEqual(SummaryHelper.dayToStringFormatter(date), "Wednesday")
+    }
+    
+    func testConvertTemp() {
+        // Test converting from Fahrenheit to Celsius
+        let fahrenheitValue: Double = 68.0
+        let celsiusValue = SummaryHelper.convertTempUnit(fahrenheitValue, actualType: .imperial, convertedType: .metric)
+        XCTAssertEqual(celsiusValue, 20.0, accuracy: 0.001) // Allow for floating-point precision
+
+        // Test converting from Celsius to Fahrenheit
+        let celsiusValue2: Double = 20.0
+        let fahrenheitValue2 = SummaryHelper.convertTempUnit(celsiusValue2, actualType: .metric, convertedType: .imperial)
+        XCTAssertEqual(fahrenheitValue2, 68.0, accuracy: 0.001) // Allow for floating-point precision
+
+        // Test converting between the same units (no conversion)
+        let sameUnitsValue: Double = 30.0
+        let unchangedValue = SummaryHelper.convertTempUnit(sameUnitsValue, actualType: .metric, convertedType: .metric)
+        XCTAssertEqual(unchangedValue, 30.0, accuracy: 0.001) // Allow for floating-point precision
     }
     
 }
