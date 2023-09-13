@@ -57,12 +57,13 @@ struct SummaryHelper {
     //      - convertedType: The target unit system for conversion.
     //    - Returns: The converted temperature value in the specified unit system.
     static func convertTempUnit(_ value: Double, actualType: Units, convertedType: Units) -> Double {
+        var convertedValue: Double = value
         if actualType == .imperial && convertedType == .metric {
-            return (value - 32) * 5/9
+            convertedValue = (value - 32) * 5/9
         } else if actualType == .metric && convertedType == .imperial {
-            return (value * 9/5) + 32
+            convertedValue = (value * 9/5) + 32
         }
-        return value
+        return convertedValue
     }
     
     // Removes text after the first comma in a string
